@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="warning">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -10,5 +10,63 @@
 </ion-header>
 
 <ion-content>
-ฟหก
+  <div paddirg>
+    <ion-card>
+      <ion-item>
+        <ion-label position="fixed">search</ion-label>
+        <ion-input
+          [(ngModel)]="searchlogs"
+          type="text"
+          (keyup)="onSearch(searchlogs)"
+        ></ion-input>
+      </ion-item>
+    </ion-card>
+  </div>
+
+  <div style="overflow-x: auto;max-height:50vh;" *ngIf="dataLogs.length > 0">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">KEY</th>
+          <th scope="col">Temperature</th>
+          <th scope="col">Humidity</th>
+          <th scope="col">Date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr></tr>
+        <tr *ngFor="let X of datalogsSearch; let i = index">
+          <td style="vertical-align: middle;">{{ i + 1 }}</td>
+          <th style="vertical-align: middle;">{{ X.key }}</th>
+          <td style="vertical-align: middle;">{{ X.payload.Humididy }}</td>
+          <td style="vertical-align: middle;">{{ X.payload.Temperature }}</td>
+          <td style="vertical-align: middle;">{{ X.payload.time }}</td>
+          <td>
+            <span style="margin: 0px 5px 0px 5px;">
+              <button
+                type="button"
+                class="btn btn-primary btn-sm"
+                [routerLink]="['/listupdate',comvertJson(X)]"
+                routerDirection="forward"
+              >
+                แก้ไข
+              </button>
+            </span>
+
+            <span style="margin: 0px 5px 0px 5px;">
+              <button
+                type="button"
+                class="btn btn-danger btn-sm"
+                (click)="onDelete(X.key)"
+              >
+                ลบ
+              </button>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </ion-content>
