@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: './list/list.module#ListPageModule'
   },
 
-  { path: 'listupdate/:data', loadChildren: './listupdate/listupdate.module#ListupdatePageModule' }
+  
 
 ];
 

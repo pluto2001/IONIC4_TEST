@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AngularFireDatabase } from "@angular/fire/database";
+import { MyserviceService } from "../services/myservice.service";
+import { AlertController } from "@ionic/angular";
 
 export interface data {
   key: String;
@@ -15,7 +17,11 @@ export class ListPage implements OnInit {
   public dataLogs: Array<any> = [];
   public searchlogs: string = "";
   public datalogsSearch: Array<any> = [];
-  constructor(public fb: AngularFireDatabase) {}
+  constructor(
+    public fb: AngularFireDatabase,
+    public asa: MyserviceService,
+    public alertController: AlertController
+  ) {}
 
   ngOnInit() {
     this.fb
@@ -34,14 +40,26 @@ export class ListPage implements OnInit {
         console.log(this.dataLogs);
         this.onSearch("");
       });
+    this.onSearch(this.searchlogs);
   }
 
   public onDelete(key: string) {
-    // console.log(key);
-    if (confirm("ยืนยันการลบข้อมูล")) {
-      this.dataLogs = [];
-      this.fb.object("/logs/" + key).remove();
-    }
+    this.asa
+      .presentAlertConfirm("ทดสอบ Alert")
+      .then((value: Boolean) => {
+        this.dataLogs = [];
+        this.fb.object("/logs/" + key).remove();
+      })
+      .catch(async (reason: boolean) => {
+        const alert = await this.alertController.create({
+          header: "Alert",
+
+          message: "ยกเลิกแล้ว",
+          buttons: ["OK"]
+        });
+
+        await alert.present();
+      });
   }
   public onSearch(text: string) {
     let txt = new RegExp(this.searchlogs, "gi");

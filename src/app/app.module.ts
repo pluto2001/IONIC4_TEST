@@ -15,6 +15,7 @@ import {
   AngularFireDatabaseModule,
   AngularFireDatabase
 } from "@angular/fire/database";
+import { MyserviceService } from './services/myservice.service';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBW7f8-ZKYF70YR1t_3kLpabtUG7Rs6ojU",
@@ -40,7 +41,8 @@ export const firebaseConfig = {
     AngularFireDatabase,
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    MyserviceService
   ],
   bootstrap: [AppComponent]
 })

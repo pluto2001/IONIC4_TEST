@@ -10,6 +10,41 @@
 </ion-header>
 
 <ion-content>
-    <h1></h1>
+  <div *ngIf="dataDht" class="text-center">
+    <div>
+      <ngx-gauge
+        type="arch"
+        [value]="dataDht.Temperature"
+        value="30"
+        label="Temperature"
+        append="°C"
+        [thick]="screenDisplay.thick"
+        cap="round"
+        [thresholds]="thresholdConfig"
+        [size]="screenDisplay.width"
+      >
+      </ngx-gauge>
+    </div>
 
+    <div>
+      <ngx-gauge
+        type="arch"
+        [value]="dataDht.Humidity"
+        value="30"
+        label="Humidity"
+        append="%"
+        [thick]="screenDisplay.thick"
+        cap="round"
+        [thresholds]="thresholdConfig"
+        [size]="screenDisplay.width"
+      >
+      </ngx-gauge>
+    </div>
+    <ion-toggle
+      color="warning"
+      [(ngModel)]="sw_toggle"
+      (ionChange)="sw_onChange()"
+      style="--background:blue;"
+    ></ion-toggle>
+  </div>
 </ion-content>
